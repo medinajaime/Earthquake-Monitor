@@ -1,0 +1,3 @@
+C:/Users/Jaime/Documents/112-2/Intro to CMPS 2/C++ final/Earthquake/cmake-build-debug/CMakeFiles/Earthquake.dir
+C:/Users/Jaime/Documents/112-2/Intro to CMPS 2/C++ final/Earthquake/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Jaime/Documents/112-2/Intro to CMPS 2/C++ final/Earthquake/cmake-build-debug/CMakeFiles/rebuild_cache.dir
