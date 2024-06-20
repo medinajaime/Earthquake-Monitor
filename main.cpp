@@ -1,7 +1,6 @@
 #include "crow.h"
 #include "EarthquakeNotification.h"
-#include "ConsoleNotification.h"
-#include "FileNotification.h"
+#include "CombinedNotification.h" // Include CombinedNotification header
 #include "EarthquakeFetcher.h"
 #include "EarthquakeMonitor.h"
 #include <atomic>
@@ -12,9 +11,8 @@ int main() {
     crow::SimpleApp app;
     std::string apiKey = "CWA-103C5D0F-4366-4991-AAC8-4975188142C4";
     EarthquakeFetcher fetcher(apiKey);
-    ConsoleNotification consoleNotifier;
-    FileNotification fileNotifier;
-    EarthquakeMonitor monitor(fetcher, consoleNotifier);
+    CombinedNotification combinedNotifier; // Create CombinedNotification instance
+    EarthquakeMonitor monitor(fetcher, combinedNotifier); // Use CombinedNotification in EarthquakeMonitor
 
     CROW_ROUTE(app, "/start-monitoring").methods("POST"_method)([&]() {
         if (!running) {
