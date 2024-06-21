@@ -64,9 +64,9 @@ private:
                         ss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
                         long time = std::mktime(&tm);
 
-                        if (location.find("Taiwan") != std::string::npos) {
+                        //if (location.find("Taiwan") != std::string::npos) {
                             notifier.notify(location, magnitude, time);
-                        }
+                        //}
                     }
 
                     previousData = currentData;

@@ -16,8 +16,8 @@ public:
 
     std::string fetch() {
         const std::vector<std::string> urls = {
-                "https://opendata.cwa.gov.tw/api/v1/rest/datastore/E-A0015-001?Authorization=" + apiKey,
-                "https://opendata.cwa.gov.tw/api/v1/rest/datastore/E-A0016-001?Authorization=" + apiKey
+                "https://opendata.cwa.gov.tw/api/v1/rest/datastore/E-A0015-002?Authorization=" + apiKey,
+                "https://opendata.cwa.gov.tw/api/v1/rest/datastore/E-A0016-002?Authorization=" + apiKey
         };
 
         CURL* curl;
