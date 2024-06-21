@@ -5,7 +5,6 @@
 #ifndef EARTHQUAKE_EARTHQUAKEMONITOR_H
 #define EARTHQUAKE_EARTHQUAKEMONITOR_H
 
-
 #include "EarthquakeNotification.h"
 #include "EarthquakeFetcher.h"
 #include <atomic>
@@ -13,6 +12,8 @@
 #include <chrono>
 #include <nlohmann/json.hpp>
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 
 class EarthquakeMonitor {
 public:
@@ -50,12 +51,13 @@ private:
 
                 if (!currentData.empty() && currentData != previousData) {
                     auto jsonData = nlohmann::json::parse(currentData);
-                    auto earthquakes = jsonData["records"]["earthquake"];
+                    auto earthquakes = jsonData["records"]["Earthquake"];
 
                     for (const auto& quake : earthquakes) {
-                        std::string location = quake["earthquakeInfo"]["epiCenter"]["location"].get<std::string>();
-                        double magnitude = quake["earthquakeInfo"]["magnitude"]["magnitudeValue"].get<double>();
-                        std::string timeStr = quake["earthquakeInfo"]["originTime"].get<std::string>();
+                        std::string location = quake["EarthquakeInfo"]["Epicenter"]["Location"].get<std::string>();
+                        double magnitude = quake["EarthquakeInfo"]["EarthquakeMagnitude"]["MagnitudeValue"].get<double>();
+                        std::string timeStr = quake["EarthquakeInfo"]["OriginTime"].get<std::string>();
+
                         // Convert time string to timestamp
                         std::tm tm = {};
                         std::istringstream ss(timeStr);
@@ -83,6 +85,5 @@ private:
     std::atomic<bool> running;
     std::thread monitorThread;
 };
-
 
 #endif //EARTHQUAKE_EARTHQUAKEMONITOR_H
