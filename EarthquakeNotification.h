@@ -9,7 +9,7 @@
 
 class EarthquakeNotification {
 public:
-    virtual void notify(const std::string& location, double magnitude, long time) const = 0;
+    virtual void notify(const std::string& location, double magnitude, const std::string& time) const = 0;
     virtual ~EarthquakeNotification() = default;
 };
 

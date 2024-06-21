@@ -10,7 +10,7 @@
 
 class FileNotification : public EarthquakeNotification {
 public:
-    void notify(const std::string& location, double magnitude, long time) const override {
+    void notify(const std::string& location, double magnitude, const std::string& time) const override {
         std::ofstream file("earthquakes.log", std::ios::app);
         if (file.is_open()) {
             file << "New Earthquake Detected!\n";

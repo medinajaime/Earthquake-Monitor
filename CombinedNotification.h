@@ -18,7 +18,7 @@ private:
     FileNotification fileNotifier;
 
 public:
-    void notify(const std::string& location, double magnitude, long time) const override {
+    void notify(const std::string& location, double magnitude, const std::string& time) const override {
         consoleNotifier.notify(location, magnitude, time);
         fileNotifier.notify(location, magnitude, time);
     }

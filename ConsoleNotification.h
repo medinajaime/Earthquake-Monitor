@@ -10,7 +10,7 @@
 
 class ConsoleNotification : public EarthquakeNotification {
 public:
-    void notify(const std::string& location, double magnitude, long time) const override {
+    void notify(const std::string& location, double magnitude, const std::string& time) const override {
         std::cout << "New Earthquake Detected!\n";
         std::cout << "Location: " << location << "\n";
         std::cout << "Magnitude: " << magnitude << "\n";
