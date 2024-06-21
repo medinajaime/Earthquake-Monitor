@@ -5,9 +5,10 @@
 #ifndef EARTHQUAKE_EARTHQUAKEFETCHER_H
 #define EARTHQUAKE_EARTHQUAKEFETCHER_H
 
-
 #include <string>
 #include <curl/curl.h>
+#include <vector>
+#include <stdexcept>
 
 class EarthquakeFetcher {
 public:
@@ -53,5 +54,5 @@ private:
     int currentIndex;
 };
 
+#endif // EARTHQUAKE_EARTHQUAKEFETCHER_H
 
-#endif //EARTHQUAKE_EARTHQUAKEFETCHER_H

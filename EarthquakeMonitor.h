@@ -1,7 +1,3 @@
-//
-// Created by Jaime on 6/20/2024.
-//
-
 #ifndef EARTHQUAKE_EARTHQUAKEMONITOR_H
 #define EARTHQUAKE_EARTHQUAKEMONITOR_H
 
@@ -15,6 +11,8 @@
 #include <iomanip>
 #include <sstream>
 #include <ctime>
+#include <mutex>
+
 
 class EarthquakeMonitor {
 public:
@@ -40,17 +38,15 @@ public:
 
 private:
     void monitor() {
-        // State for API 1
         std::string previousLocationAPI1;
         double previousMagnitudeAPI1 = 0.0;
         std::string previousTimeAPI1;
 
-        // State for API 2
         std::string previousLocationAPI2;
         double previousMagnitudeAPI2 = 0.0;
         std::string previousTimeAPI2;
 
-        bool isUsingAPI1 = true; // Flag to track which API is being used
+        bool isUsingAPI1 = true;
 
         while (running) {
             try {
@@ -65,13 +61,11 @@ private:
                     auto earthquakes = jsonData["records"]["Earthquake"];
 
                     if (!earthquakes.empty()) {
-                        // Get the latest earthquake data
-                        auto latestQuake = earthquakes[0]; // Assuming earthquakes are sorted by time
+                        auto latestQuake = earthquakes[0];
                         std::string location = latestQuake["EarthquakeInfo"]["Epicenter"]["Location"].get<std::string>();
                         double magnitude = latestQuake["EarthquakeInfo"]["EarthquakeMagnitude"]["MagnitudeValue"].get<double>();
                         std::string timeStr = latestQuake["EarthquakeInfo"]["OriginTime"].get<std::string>();
 
-                        // Convert time string to timestamp
                         std::tm tm = {};
                         std::istringstream ss(timeStr);
                         ss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
@@ -80,14 +74,11 @@ private:
                         }
                         std::time_t time = std::mktime(&tm);
 
-                        // Convert timestamp to readable format
                         std::ostringstream timeConverter;
                         timeConverter << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
                         std::string readableTime = timeConverter.str();
 
-                        // Check if the current data is from API 1 or API 2
                         if (isUsingAPI1) {
-                            // Compare with previous data from API 1
                             if (location != previousLocationAPI1 || magnitude != previousMagnitudeAPI1 || readableTime != previousTimeAPI1) {
                                 notifier.notify(location, magnitude, readableTime);
                                 previousLocationAPI1 = location;
@@ -95,7 +86,6 @@ private:
                                 previousTimeAPI1 = readableTime;
                             }
                         } else {
-                            // Compare with previous data from API 2
                             if (location != previousLocationAPI2 || magnitude != previousMagnitudeAPI2 || readableTime != previousTimeAPI2) {
                                 notifier.notify(location, magnitude, readableTime);
                                 previousLocationAPI2 = location;
@@ -104,7 +94,6 @@ private:
                             }
                         }
 
-                        // Toggle the API flag
                         isUsingAPI1 = !isUsingAPI1;
                     }
                 }
@@ -117,13 +106,10 @@ private:
         }
     }
 
-
-
-
     EarthquakeFetcher& fetcher;
     const EarthquakeNotification& notifier;
     std::atomic<bool> running;
     std::thread monitorThread;
 };
 
-#endif //EARTHQUAKE_EARTHQUAKEMONITOR_H
+#endif // EARTHQUAKE_EARTHQUAKEMONITOR_H

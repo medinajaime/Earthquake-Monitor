@@ -18,25 +18,10 @@ class EarthquakeLogs extends React.Component {
     componentDidMount() {
         this.fetchLogs();
         this.interval = setInterval(this.fetchLogs, 60000); // Fetch logs every minute
-
-        this.ws = new WebSocket('ws://localhost:8080/ws');
-        this.ws.onopen = () => {
-            console.log('Connected to WebSocket');
-        };
-        this.ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            this.setState((prevState) => ({
-                logs: prevState.logs ? `${prevState.logs}\n${data}` : data
-            }));
-        };
-        this.ws.onclose = () => {
-            console.log('Disconnected from WebSocket');
-        };
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
-        this.ws.close();
     }
 
     render() {

@@ -8,7 +8,7 @@
 std::atomic<bool> running(false);
 
 int main() {
-    crow::SimpleApp app;
+
     std::string apiKey = "CWA-103C5D0F-4366-4991-AAC8-4975188142C4";
     EarthquakeFetcher fetcher(apiKey);
     CombinedNotification combinedNotifier; // Create CombinedNotification instance

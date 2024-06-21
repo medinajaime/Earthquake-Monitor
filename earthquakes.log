@@ -1,0 +1,17 @@
+{
+  "records": {
+    "Earthquake": [
+      {
+        "EarthquakeInfo": {
+          "Epicenter": {
+            "Location": "55.4 km S of Hualien County Hall"
+          },
+          "EarthquakeMagnitude": {
+            "MagnitudeValue": 4.6
+          },
+          "OriginTime": "2024-06-21 12:25:56"
+        }
+      }
+    ]
+  }
+}
